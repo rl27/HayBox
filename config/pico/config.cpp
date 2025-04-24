@@ -1,4 +1,5 @@
 // Nunchuk changes are based on: https://github.com/rl27/HayBox/blob/master/config/b0xx_r4/config.cpp
+// Changes can be seen here: https://github.com/rl27/HayBox/commit/4a9d56c1b294dacde9b7ab330bcfd9e9a2d0c3af
 // Not sure if pinout value changes will work, esp. since button_mappings is different here than in the file linked above.
 
 #include "comms/backend_init.hpp"
