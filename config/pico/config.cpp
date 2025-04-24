@@ -1,3 +1,6 @@
+// Nunchuk changes are based on: https://github.com/rl27/HayBox/blob/master/config/b0xx_r4/config.cpp
+// Not sure if pinout value changes will work, esp. since button_mappings is different here than in the file linked above.
+
 #include "comms/backend_init.hpp"
 #include "config_defaults.hpp"
 #include "core/CommunicationBackend.hpp"
@@ -48,6 +51,7 @@ GpioButtonMapping button_mappings[] = {
 const size_t button_count = sizeof(button_mappings) / sizeof(GpioButtonMapping);
 
 DebouncedGpioButtonInput<button_count> gpio_input(button_mappings);
+NunchukInput *nunchuk = nullptr;
 
 const Pinout pinout = {
     .joybus_data = 28,
@@ -55,9 +59,9 @@ const Pinout pinout = {
     .nes_clock = -1,
     .nes_latch = -1,
     .mux = -1,
-    .nunchuk_detect = -1,
-    .nunchuk_sda = -1,
-    .nunchuk_scl = -1,
+    .nunchuk_detect = 3,
+    .nunchuk_sda = 4,
+    .nunchuk_scl = 5,
 };
 
 CommunicationBackend **backends = nullptr;
@@ -85,8 +89,11 @@ void setup() {
         persistence.SaveConfig(config);
     }
 
+    // Create Nunchuk input source.
+    nunchuk = new NunchukInput(Wire, pinout.nunchuk_detect, pinout.nunchuk_sda, pinout.nunchuk_scl);
+
     // Create array of input sources to be used.
-    static InputSource *input_sources[] = {};
+    static InputSource *input_sources[] = { nunchuk };
     size_t input_source_count = sizeof(input_sources) / sizeof(InputSource *);
 
     backend_count =
