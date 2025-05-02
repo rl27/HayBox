@@ -22,9 +22,8 @@ Config config = default_config;
 GpioButtonMapping button_mappings[] = {
     { BTN_LF1, 2  },
     { BTN_LF2, 3  },
-    { BTN_LF3, 4  },
-    { BTN_LF4, 5  },
-    { BTN_LF5, 1  },
+    { BTN_LF3, 8  },
+    { BTN_LF4, 9  },
 
     { BTN_LT1, 6  },
     { BTN_LT2, 7  },
@@ -60,7 +59,7 @@ const Pinout pinout = {
     .nes_clock = -1,
     .nes_latch = -1,
     .mux = -1,
-    .nunchuk_detect = 3,
+    .nunchuk_detect = -1,
     .nunchuk_sda = 4,
     .nunchuk_scl = 5,
 };
